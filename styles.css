@@ -2,6 +2,7 @@ html {
     min-height: 100%;
 }
 body{
+    user-select: none;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.93), rgba(0, 0, 0, 0.95));
     display: flex;
     justify-content: center;
@@ -11,6 +12,7 @@ body{
     background: black;
     height: 750px;
     width: 450px;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 20px;
     border-radius: 6%;
     box-shadow: 5px 5px 25px rgb(63, 63, 63);
@@ -22,7 +24,7 @@ body{
     "num7 num8 num9 mul"
     "num4 num5 num6 sub"
     "num1 num2 num3 add"
-    "zero dot equal equal";
+    "num0 dot equal equal";
     column-gap: 0px;
     row-gap: 0px;
     text-align:center;
