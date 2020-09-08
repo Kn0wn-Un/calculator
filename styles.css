@@ -1,0 +1,53 @@
+html {
+    min-height: 100%;
+}
+body{
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.93), rgba(0, 0, 0, 0.95));
+    display: flex;
+    justify-content: center;
+}
+.calc-body{
+    margin: 50px;
+    background: black;
+    height: 750px;
+    width: 450px;
+    font-size: 20px;
+    border-radius: 5%;
+    box-shadow: 10px 10px 5px rgb(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-areas:
+    "displayt displayt displayt displayt"
+    "display display display display"
+    "clear delete negate divide"
+    "num7 num8 num9 mul"
+    "num4 num5 num6 sub"
+    "num1 num2 num3 add"
+    "zero dot equal equal";
+    column-gap: 0px;
+    row-gap: 0px;
+    color:white;
+    text-align:center;
+    justify-items: center;
+}
+.display-top{
+    text-align: right;
+    grid-area: displayt;
+    margin: 5px 25px 0px 25px;
+    height: 50px;
+    width: 400px;    
+}
+.display-bottom{
+    text-align: right;
+    grid-area: display;
+    margin: 0px 25px 5px 25px;
+    border-bottom: 5px solid rgb(63, 63, 63);
+    height: 50px;
+    width: 400px;    
+}
+.buttons{
+    background: orange;
+    height: 60px;
+    width: 60px; 
+    border-radius: 50%;
+    line-height: 60px;
+}
