@@ -12,11 +12,11 @@ body{
     height: 750px;
     width: 450px;
     font-size: 20px;
-    border-radius: 5%;
-    box-shadow: 10px 10px 5px rgb(0, 0, 0, 0.5);
+    border-radius: 6%;
+    box-shadow: 5px 5px 25px rgb(63, 63, 63);
     display: grid;
     grid-template-areas:
-    "displayt displayt displayt displayt"
+    "display display display display"
     "display display display display"
     "clear delete negate divide"
     "num7 num8 num9 mul"
@@ -25,29 +25,40 @@ body{
     "zero dot equal equal";
     column-gap: 0px;
     row-gap: 0px;
-    color:white;
     text-align:center;
     justify-items: center;
 }
-.display-top{
+.display{
+    grid-area: display;
+    color: white;
+    height: 100px;
+    width: 400px;
+    font-size: 25px;  
+}
+.display-top, .display-bottom{
     text-align: right;
-    grid-area: displayt;
-    margin: 5px 25px 0px 25px;
-    height: 50px;
-    width: 400px;    
+    margin: 25px; 
 }
 .display-bottom{
-    text-align: right;
-    grid-area: display;
-    margin: 0px 25px 5px 25px;
-    border-bottom: 5px solid rgb(63, 63, 63);
-    height: 50px;
-    width: 400px;    
+    margin-top: 0px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid rgb(63, 63, 63);  
+    font-size: 50px;
 }
-.buttons{
-    background: orange;
+.buttons, .num-buttons, .equals-button{
+    background: rgb(255,149,0);
+    color: rgb(28,28,28);
     height: 60px;
     width: 60px; 
     border-radius: 50%;
     line-height: 60px;
+    font-size: 25px;
+}
+.num-buttons{
+    background: rgb(28,28,28);
+    color:rgb(212,212,210);
+}
+.equals-button{
+    width: 130px;
+    border-radius: 10000000px;
 }
