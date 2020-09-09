@@ -1,35 +1,68 @@
 let FIRST = "";
 let SECOND = "";
 let OPERAND = "";
+let FLOAT_FLAG = 0;
 function setChar(val){
     let disTop = document.querySelector(".display-top");
     let disBot = document.querySelector(".display-bottom");
     if(isNaN(parseInt(val)))
     {
         if(!SECOND)return;
-        if(val === "del");
-        if(val === "neg"){
+        if(!OPERAND && val === "=")return;
+        if(val === "."){
+            if(SECOND.indexOf('.') === -1){
+                SECOND += val;
+                FLOAT_FLAG = 1;
+            }
+            display(1,1);
+            return;
+        }
+        if(val === "del"){
+            SECOND = SECOND.substring(0, SECOND.length - 1);
+            if(!SECOND){
+                display(1, 0);
+                if(!FIRST)
+                    display(0, 0);
+                return;
+            }
+            display(1, 1);
+        }
+        else if(val === "neg"){
             if(!SECOND)
                 return;
-            if(FIRST)
-                SECOND = parseInt(evaluate(parseInt(FIRST), parseInt(SECOND), OPERAND));
-            SECOND = evaluate(parseInt(SECOND), -1, val);
+            SECOND = convert(SECOND, FLOAT_FLAG);   
+            if(FIRST){
+                FIRST = convert(FIRST, FLOAT_FLAG);    
+                SECOND = convert(evaluate(FIRST, SECOND, OPERAND), FLOAT_FLAG);
+            }
+            SECOND = convert(evaluate(SECOND, -1, val), FLOAT_FLAG);
             FIRST = "";
             OPERAND = "";
-            disTop.innerHTML = String.fromCharCode(160);
-            disBot.innerHTML = SECOND;
+            display(1, 1);
             return;
         }
         else{
             if(val === "=" || (FIRST.length != 0)){
+                if(!SECOND){
+                    OPERAND = val;
+                    display(1, 0);
+                    return;
+                }
                 disTop.innerHTML = FIRST + " " + OPERAND + " " + SECOND;
-                SECOND = parseInt(evaluate(parseInt(FIRST), parseInt(SECOND), OPERAND));
+                FIRST = convert(FIRST, FLOAT_FLAG);
+                SECOND = convert(SECOND, FLOAT_FLAG);
+                SECOND = convert(evaluate(FIRST, SECOND, OPERAND), FLOAT_FLAG);
                 FIRST = "";
                 OPERAND = "";
                 disBot.innerHTML = SECOND;
+                if(SECOND === 0){
+                    display(0, 1);
+                    SECOND = "";
+                    return;
+                }
                 if(val === "=" || isNaN(SECOND))
                 {
-                    disTop.innerHTML = String.fromCharCode(160);
+                    display(0, 1);
                     if(isNaN(SECOND)){ 
                         SECOND = "";
                         disBot.innerHTML = "err";
@@ -40,8 +73,8 @@ function setChar(val){
             OPERAND = val;
             FIRST = SECOND;
             SECOND = "";
-            disTop.innerHTML = FIRST + " " + OPERAND + " " + SECOND;
-            disBot.innerHTML = String.fromCharCode(160);
+            FLOAT_FLAG = 0;
+            display(1, 0);
         }
     }
     else{
@@ -52,6 +85,21 @@ function setChar(val){
     }
         
 }
+
+
+
+const display = (top, bottom) =>{
+    let disTop = document.querySelector(".display-top");
+    let disBot = document.querySelector(".display-bottom");
+    disTop.innerHTML = top ?  FIRST + " " + OPERAND + " " + SECOND : String.fromCharCode(160);
+    disBot.innerHTML = bottom ?  SECOND : String.fromCharCode(160);
+};
+
+
+
+const convert = (num, flag) => {
+   return flag ? Number.parseFloat(num).toFixed(2) : parseInt(num);
+};
 
 
 
