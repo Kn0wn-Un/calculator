@@ -51,7 +51,7 @@ function setChar(val){
                 disTop.innerHTML = FIRST + " " + OPERAND + " " + SECOND;
                 FIRST = convert(FIRST, FLOAT_FLAG);
                 SECOND = convert(SECOND, FLOAT_FLAG);
-                SECOND = convert(evaluate(FIRST, SECOND, OPERAND), FLOAT_FLAG);
+                SECOND = evaluate(FIRST, SECOND, OPERAND);
                 FIRST = "";
                 OPERAND = "";
                 disBot.innerHTML = SECOND;
@@ -73,7 +73,6 @@ function setChar(val){
             OPERAND = val;
             FIRST = SECOND;
             SECOND = "";
-            FLOAT_FLAG = 0;
             display(1, 0);
         }
     }
@@ -98,7 +97,7 @@ const display = (top, bottom) =>{
 
 
 const convert = (num, flag) => {
-   return flag ? Number.parseFloat(num).toFixed(2) : parseInt(num);
+   return flag ? parseFloat(parseFloat(num).toFixed(2)) : parseInt(num);
 };
 
 
@@ -107,7 +106,6 @@ function getOperands(){
     let opArr = document.querySelectorAll(".buttons");
     opArr = Array.from(opArr);
     opArr.push(document.querySelector(".equals-button"));
-    console.log(opArr)
     for(i in opArr){
         opArr[i].addEventListener('click', (e)=>setOperands(e));
     }
@@ -173,8 +171,11 @@ function evaluate(a, b, sign){
         case "neg": ans = a * b;
             break;
     }
+    if(ans === Math.ceil(ans))
+        FLOAT_FLAG = 0; 
+    ans = FLOAT_FLAG ? ans.toFixed(2) : ans.toString();
     if(ans.toString().length > 12){
         return "err";
     }
-    return ans;
+    return ans
 }
