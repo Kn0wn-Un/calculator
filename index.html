@@ -5,20 +5,26 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="calc-body">
-            <div class="display">
-                <div class="display-top">&nbsp;</div>
-                <div class="display-bottom">0</div>
+        <div style="display: flex;justify-content: center;">
+            <div class="calc-body">
+                <div class="display">
+                    <div class="display-top">&nbsp;</div>
+                    <div class="display-bottom">0</div>
+                </div>
+                <div class="buttons" id="ac" style="grid-area: clear; background: rgb(166, 165, 166);">AC</div>
+                <div class="buttons" id="del" style="grid-area: delete; background: rgb(166, 165, 166);">DEL</div>
+                <div class="buttons" id="neg" style="grid-area: negate; background: rgb(166, 165, 166);">+/-</div>
+                <div class="buttons" id="/" style="grid-area: divide;">/</div>
+                <div class="buttons" id="*" style="grid-area: mul;">*</div>
+                <div class="buttons" id="-" style="grid-area: sub;">-</div>
+                <div class="buttons" id="+" style="grid-area: add;">+</div>
+                <div class="buttons" id="." style="grid-area: dot; background: rgb(166, 165, 166);">.</div>
+                <div class="equals-button" id="=" style="grid-area: equal;">=</div>        
             </div>
-            <div class="buttons" id="ac" style="grid-area: clear;">AC</div>
-            <div class="buttons" id="del" style="grid-area: delete;">DEL</div>
-            <div class="buttons" id="neg" style="grid-area: negate;">+/-</div>
-            <div class="buttons" id="/" style="grid-area: divide;">/</div>
-            <div class="buttons" id="*" style="grid-area: mul;">*</div>
-            <div class="buttons" id="-" style="grid-area: sub;">-</div>
-            <div class="buttons" id="+" style="grid-area: add;">+</div>
-            <div class="buttons" id="." style="grid-area: dot;">.</div>
-            <div class="equals-button" id="=" style="grid-area: equal;">=</div>        
+        </div>
+        <div class="footer">
+            <div>Inspired by iOS</div>
+            <div>Made by Darshan - <a href="#">View on GitHub</a></div>
         </div>
         <script async src="script.js"></script>
     </body>

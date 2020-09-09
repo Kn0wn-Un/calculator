@@ -7,7 +7,7 @@ function setChar(val){
     let disBot = document.querySelector(".display-bottom");
     if(isNaN(parseInt(val)))
     {
-        if(!SECOND)return;
+        if(!SECOND && val != "del")return;
         if(!OPERAND && val === "=")return;
         if(val === "."){
             if(SECOND.indexOf('.') === -1){
@@ -22,7 +22,7 @@ function setChar(val){
             if(!SECOND){
                 display(1, 0);
                 if(!FIRST)
-                    display(0, 0);
+                    allClear();
                 return;
             }
             display(1, 1);
@@ -35,7 +35,7 @@ function setChar(val){
                 FIRST = convert(FIRST, FLOAT_FLAG);    
                 SECOND = convert(evaluate(FIRST, SECOND, OPERAND), FLOAT_FLAG);
             }
-            SECOND = convert(evaluate(SECOND, -1, val), FLOAT_FLAG);
+            SECOND = convert(evaluate(SECOND, -1, "*"), FLOAT_FLAG);
             FIRST = "";
             OPERAND = "";
             display(1, 1);
@@ -55,7 +55,7 @@ function setChar(val){
                 FIRST = "";
                 OPERAND = "";
                 disBot.innerHTML = SECOND;
-                if(SECOND === 0){
+                if(SECOND === "0"){
                     display(0, 1);
                     SECOND = "";
                     return;
@@ -64,7 +64,7 @@ function setChar(val){
                 {
                     display(0, 1);
                     if(isNaN(SECOND)){ 
-                        SECOND = "";
+                        allClear();
                         disBot.innerHTML = "err";
                     }
                     return;
@@ -108,6 +108,7 @@ function getOperands(){
     opArr.push(document.querySelector(".equals-button"));
     for(i in opArr){
         opArr[i].addEventListener('click', (e)=>setOperands(e));
+        temp = opArr[i].getAttribute("id");
     }
 
 }
@@ -127,14 +128,21 @@ function setOperands(e){
         case "del": 
         case "neg": setChar(btn);
                     break;
-        case "ac": FIRST = "";
-                    SECOND = "";
-                    OPERAND = "";
-                    let disTop = document.querySelector(".display-top");
-                    let disBot = document.querySelector(".display-bottom");
-                    disTop.innerHTML = String.fromCharCode(160);
-                    disBot.innerHTML = "0";
+        case "ac": allClear();
     }
+}
+
+
+
+const allClear = ()=>{
+    let disTop = document.querySelector(".display-top");
+    let disBot = document.querySelector(".display-bottom");
+    FIRST = "";
+    SECOND = "";
+    OPERAND = "";
+    FLOAT_FLAG = 0;
+    disTop.innerHTML = String.fromCharCode(160);
+    disBot.innerHTML = "0";
 }
 
 
@@ -168,8 +176,6 @@ function evaluate(a, b, sign){
                     return "err"; 
                     ans = a / b;
                     break;
-        case "neg": ans = a * b;
-            break;
     }
     if(ans === Math.ceil(ans))
         FLOAT_FLAG = 0; 
@@ -179,3 +185,36 @@ function evaluate(a, b, sign){
     }
     return ans
 }
+
+
+
+function keyboardInput(){
+    let body = document.querySelector("body");
+    body.addEventListener('keydown', (e)=>{
+            pressed = e.key;
+            console.log(pressed);
+            console.log(e.target.getAttribute("value"));
+            if(parseInt(pressed) || pressed === "0")
+                setChar(pressed);
+            switch(pressed){
+                case "/":
+                case "*":
+                case "-":
+                case "+":
+                case ".":setChar(pressed);
+                break;
+                case "%":setChar("/");
+                break;
+                case "=":
+                case "Enter":setChar("=");
+                break;
+                case "Backspace":setChar("del");
+                break;
+                case "Delete": allClear();
+                break;
+                case "!": setChar("neg");
+                break;
+            }
+    });
+}
+keyboardInput();
