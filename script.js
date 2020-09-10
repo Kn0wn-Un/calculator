@@ -1,14 +1,22 @@
+//Global Variables
 let FIRST = "";
 let SECOND = "";
 let OPERAND = "";
 let FLOAT_FLAG = 0;
+
+
+
+//function to handle input and seperate numbers 
 function setChar(val){
     let disTop = document.querySelector(".display-top");
     let disBot = document.querySelector(".display-bottom");
     if(isNaN(parseInt(val)))
-    {
+    {   
+        //if only operands pressed
         if(!SECOND && val != "del")return;
+        //handle just =
         if(!OPERAND && val === "=")return;
+        //make floating variables
         if(val === "."){
             if(SECOND.indexOf('.') === -1){
                 SECOND += val;
@@ -17,6 +25,7 @@ function setChar(val){
             display(1,1);
             return;
         }
+        //handles del button
         if(val === "del"){
             SECOND = SECOND.substring(0, SECOND.length - 1);
             if(!SECOND){
@@ -27,6 +36,7 @@ function setChar(val){
             }
             display(1, 1);
         }
+        //handles +/- button
         else if(val === "neg"){
             if(!SECOND)
                 return;
@@ -41,6 +51,7 @@ function setChar(val){
             display(1, 1);
             return;
         }
+        //handles basic arithematic and = 
         else{
             if(val === "=" || (FIRST.length != 0)){
                 if(!SECOND){
@@ -63,6 +74,7 @@ function setChar(val){
                 if(val === "=" || isNaN(SECOND))
                 {
                     display(0, 1);
+                    //errors
                     if(isNaN(SECOND)){ 
                         disBot.innerHTML = "error";
                         disBot.classList.add("err-state");
@@ -78,12 +90,14 @@ function setChar(val){
                     return;
                 }
             }
+            //when valid operand
             OPERAND = val;
             FIRST = SECOND;
             SECOND = "";
             display(1, 0);
         }
     }
+    //inputs only numbers
     else{
         if(SECOND.length < 6)
             SECOND += val;
@@ -95,6 +109,7 @@ function setChar(val){
 
 
 
+//function to populate display
 const display = (top, bottom) =>{
     let disTop = document.querySelector(".display-top");
     let disBot = document.querySelector(".display-bottom");
@@ -104,12 +119,14 @@ const display = (top, bottom) =>{
 
 
 
+//function to convert string inputs to numbers/floats
 const convert = (num, flag) => {
    return flag ? parseFloat(parseFloat(num).toFixed(2)) : parseInt(num);
 };
 
 
 
+//function to set event listeners for operand buttons
 function getOperands(){
     let opArr = document.querySelectorAll(".buttons");
     opArr = Array.from(opArr);
@@ -120,10 +137,10 @@ function getOperands(){
     }
 
 }
-getOperands();
 
 
 
+//send operand button values to handle inputs
 function setOperands(e){
     btn = e.target.getAttribute("id");
     switch(btn){
@@ -142,6 +159,7 @@ function setOperands(e){
 
 
 
+//function to reset calculator
 const allClear = ()=>{
     let disTop = document.querySelector(".display-top");
     let disBot = document.querySelector(".display-bottom");
@@ -155,6 +173,7 @@ const allClear = ()=>{
 
 
 
+//function to make and set event listeners number buttons
 function addNumbers(){
     let calc = document.querySelector(".calc-body");
     for(i = 0; i < 10; i ++){
@@ -167,10 +186,10 @@ function addNumbers(){
         calc.appendChild(num);
     }
 }
-addNumbers();
 
 
 
+//function to perform math calculations FLOAT_FLAG handled here
 function evaluate(a, b, sign){
     let ans;
     switch(sign){
@@ -198,12 +217,11 @@ function evaluate(a, b, sign){
 
 
 
+//function to listen for keyboard inputs and map them to respective variables
 function keyboardInput(){
     let body = document.querySelector("body");
     body.addEventListener('keydown', (e)=>{
             pressed = e.key;
-            console.log(pressed);
-            console.log(e.target.getAttribute("value"));
             if(parseInt(pressed) || pressed === "0")
                 setChar(pressed);
             switch(pressed){
@@ -227,4 +245,10 @@ function keyboardInput(){
             }
     });
 }
+
+
+//inital function calls
+alert("Input values limited to 6 and Output value limited to 12");
+addNumbers();
+getOperands();
 keyboardInput();
