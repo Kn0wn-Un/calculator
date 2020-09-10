@@ -64,8 +64,16 @@ function setChar(val){
                 {
                     display(0, 1);
                     if(isNaN(SECOND)){ 
-                        allClear();
-                        disBot.innerHTML = "err";
+                        disBot.innerHTML = "error";
+                        disBot.classList.add("err-state");
+                        setTimeout(() =>{
+                            document.querySelector(".display-bottom").classList.add("remove-error");
+                            setTimeout(() =>{
+                            document.querySelector(".display-bottom").classList.remove("err-state");
+                            document.querySelector(".display-bottom").classList.remove("remove-error");
+                            allClear();
+                            }, 750);
+                        }, 750);
                     }
                     return;
                 }
@@ -177,8 +185,10 @@ function evaluate(a, b, sign){
                     ans = a / b;
                     break;
     }
-    if(ans === Math.ceil(ans))
-        FLOAT_FLAG = 0; 
+    if(ans === parseInt(ans))
+        FLOAT_FLAG = 0;
+    else 
+        FLOAT_FLAG = 1;  
     ans = FLOAT_FLAG ? ans.toFixed(2) : ans.toString();
     if(ans.toString().length > 12){
         return "err";
