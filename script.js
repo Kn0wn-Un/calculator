@@ -254,3 +254,11 @@ addNumbers();
 getOperands();
 keyboardInput();
 alert("Input values limited to 6 and Output value limited to 12");
+
+
+
+//prevent backspace
+window.onkeydown = function(e) {
+    if (e.keyCode == 8 && e.target == document.body)
+      e.preventDefault();
+  }
