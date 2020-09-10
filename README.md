@@ -31,5 +31,5 @@ Calculator Project made using JS, CSS and HTML
 
 ### View in Browser
 
-[Calculator](https://kn0wn-un.github.io/calculator/){:target="_blank"}
+<a href="https://kn0wn-un.github.io/calculator/" target="_blank">Calculator</a>
 
