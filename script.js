@@ -77,6 +77,8 @@ function setChar(val){
                     //errors
                     if(isNaN(SECOND)){ 
                         disBot.innerHTML = "error";
+                        if(SECOND === "Noob")
+                            disBot.innerHTML = "Noob";
                         disBot.classList.add("err-state");
                         setTimeout(() =>{
                             document.querySelector(".display-bottom").classList.add("remove-error");
@@ -200,7 +202,7 @@ function evaluate(a, b, sign){
         case "*": ans = a * b;
             break;
         case "/": if(b == 0)
-                    return "err"; 
+                    return "Noob"; 
                     ans = a / b;
                     break;
     }
