@@ -248,7 +248,7 @@ function keyboardInput(){
 
 
 //inital function calls
-alert("Input values limited to 6 and Output value limited to 12");
 addNumbers();
 getOperands();
 keyboardInput();
+alert("Input values limited to 6 and Output value limited to 12");
