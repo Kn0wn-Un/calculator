@@ -1,3 +1,7 @@
+### View in Browser
+
+[Calculator](https://kn0wn-un.github.io/calculator/)
+
 ### Introduction
 
 Calculator Project made using JS, CSS and HTML
@@ -26,10 +30,3 @@ Calculator Project made using JS, CSS and HTML
 |+/-     | !               |
 |AC      | Delete          |
 |Del     | Backspace       |
-
-
-
-### View in Browser
-
-[Calculator](https://kn0wn-un.github.io/calculator/)
-
